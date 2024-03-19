@@ -11,10 +11,18 @@ const db = new sqlite.Database('questions.sqlite', (err) => { if (err) throw err
 
 function Answer(id, text, email, date, score=0){
     this.id = id
-    this.text = text;                           
+    this.text = text;           
     this.email = email;
     this.date = dayjs(date);
     this.score = score;
+
+    this.getID = () => {
+        const sql = 'SELECT id FROM user WHERE user.email = ?';
+        return db.get(sql,[this.email],(err,row) => {
+            if (err) throw err;
+            else return row;
+        });
+    }
 
     this.toString = () => {
         return `\n${this.username} replied '${this.text}' on ${this.date.format('YYYY-MM-DD')} and got a score of ${this.score}`;
@@ -27,6 +35,22 @@ function Question(id, text, email, date){
     this.email = email;
     this.date = dayjs(date);
 
+    this.getID = () => {
+        const sql = 'SELECT id FROM user WHERE user.email = ?';
+        return db.get(sql,[this.email],(err,row) => {
+            if (err) throw err;
+            else return row;
+        });
+    }
+
+    this.addAnswer = (answer) => {
+        const sql = 'INSERT INTO answer VALUES (?,?,?,?,?,?)';
+        db.run(sql,[answer.id, answer.text, answer.getID, answer.date.format('YYYY-MM-DD'), answer.score, this.id], function (err) {
+            if (err) throw err;
+            else console.log(this.changes);
+        });
+    }
+
     this.getAnswers = () => {
         return new Promise((resolve, reject) => {
             const sql = 'SELECT answer.id, text, user.email, date, score FROM answer, user WHERE answer.questionId=? AND answer.authorId = user.id';
@@ -35,7 +59,8 @@ function Question(id, text, email, date){
                     reject(err);
                 }else{
                     const answers = rows.map((ans) => { 
-                        new Answer(ans.id, ans.text, ans.text, ans.email, ans.data, ans.score);
+                        new Answer(ans.id, ans.text, ans.email, ans.data, ans.score);
+                        return ans;
                     });
                     resolve(answers);
                 }
@@ -43,31 +68,78 @@ function Question(id, text, email, date){
         });
     }
 
-    this.add = (answer) => {
-        this.answers.push(answer);
+    this.getTop = (num) => {
+        console.log(this.id);
+        return new Promise((resolve, reject) => {
+            const sql = 'SELECT * FROM answer WHERE id = ?';
+            db.all(sql,[this.id],(err,rows) => {
+                if (err) reject(err);
+                else{
+                    const results = rows.sort((a,b) => (b.score - a.score));
+                    resolve(results.slice(0,num));
+                }
+            })
+        })
+    }
+}
+
+function QuestionList(){
+
+    this.addQuestion = (question) => {
+        const sql = 'INSERT INTO question VALUES (?,?,?,?)';
+        db.run(sql,[question.id, question.text, question.getID, question.date.format('YYYY-MM-DD')], function (err) {
+            if (err) throw err;
+            else console.log(this.changes);
+        });
     }
 
-    this.find = (username) => {
-        return this.answers.filter(ans => ans.username === username);
+    this.getQuestion = (id) => {
+        return new Promise((resolve, reject) => {
+            const sql = 'SELECT * FROM question WHERE question.id = ?';
+            db.get(sql,[id],(err,row) => {
+                if (err) reject(err);
+                else{
+                    resolve(row);
+                }
+            })
+        })
     }
 
     this.afterDate = (date) => {
-        return this.answers.filter(ans => ans.date.isAfter(dayjs(date)));
-    }
-    
-    this.listByDate = () => {
-        return [...this.answers].sort((a,b) => (a.date.isAfter(b.date) ? 1 : -1)); //using spread to copy the array and not modify permanently the original one
-    }
-
-    this.listByScore = () => {
-        return [...this.answers].sort((a,b) => b.score-a.score);
+        date = dayjs(date);
+        return new Promise((resolve, reject) => {
+            const sql = 'SELECT * FROM question';
+            db.all(sql,[],(err, rows) => {
+                if (err) reject(err);
+                else{
+                    const results = rows.filter(a => (a.date).isAfter(date));
+                    resolve(results);
+                }
+            })
+        })
     }
 }
 
 async function main() {
-    let question = new Question(1,'','','');
-    question.getAnswers().then(results => console.log(results));
-    const results = await fake.getAnswers();
+    const sql = 'DELETE FROM answer WHERE id = 5';
+    db.run(sql,[], function (err) {
+        if (err) throw err;
+    })
+    let question = new Question(3,'Does this program work?','luigi.derussis@polito.it','2024-03-19');
+    let answer = new Answer(5, 'I hope so', 'luca.mannella@polito.it','2024-03-19',3);
+    question.addAnswer(answer);
+    question.getAnswers().then(getAnswer => {
+        console.log("getAnswers:");
+        console.log(getAnswer);
+    });
+    const result1= await question.getAnswers();
+    question.getTop(2).then(getTop => {
+        console.log("getTop:");
+        console.log(getTop);
+    });
+    const result2 = await question.getTop(2);
 }
+
+
 
 main();
