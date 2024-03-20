@@ -80,10 +80,8 @@ function FilmLibrary(){
             db.all(sql,[],(err, rows) => {
                 if (err) reject(err);
                 else{
-                    const result = rows.map(ans => {
-                        if (dayjs(ans.watchDate).isAfter(date)) {
-                            return new Movie(ans.id, ans.title, ans.userId, ans.isFavorite, ans.rating, ans.watchDate);
-                        };
+                    const result = rows.filter(ans => dayjs(ans.watchDate).isAfter(date)).map(ans => {
+                        return new Movie(ans.id, ans.title, ans.userId, ans.isFavorite, ans.rating, ans.watchDate);
                     })
                     resolve(result);
                 }
@@ -112,10 +110,8 @@ function FilmLibrary(){
             db.all(sql,[],(err, rows) => {
                 if (err) reject(err);
                 else{
-                    const result = rows.map(ans => {
-                        if((ans.title).includes(str)){
-                            return new Movie(ans.id, ans.title, ans.userId, ans.isFavorite, ans.rating, ans.watchDate);
-                        }
+                    const result = rows.filter(ans => (ans.title).includes(str)).map(ans => {
+                        return new Movie(ans.id, ans.title, ans.userId, ans.isFavorite, ans.rating, ans.watchDate);
                     })
                     resolve(result);
                 }
@@ -161,17 +157,17 @@ async function main(){
         console.log(x);
     })
     const result3 = await library.DBafterDate();
-    library.DBafterDate().then(x => {
+    library.DBafterDate("2024-03-17").then(x => {
         console.log("DBafterDate:")
         console.log(x);
     })
     const result4 = await library.DBafterDate("2024-03-17");
-    library.DBprintGreater().then(x => {
+    library.DBprintGreater(4).then(x => {
         console.log("DBprintGreater:")
         console.log(x);
     })
     const result5 = await library.DBprintGreater(4);
-    library.DBprintContainString().then(x => {
+    library.DBprintContainString('Star').then(x => {
         console.log("DBprintContainString:")
         console.log(x);
     })
