@@ -59,8 +59,7 @@ function Question(id, text, email, date){
                     reject(err);
                 }else{
                     const answers = rows.map((ans) => { 
-                        new Answer(ans.id, ans.text, ans.email, ans.data, ans.score);
-                        return ans;
+                        return new Answer(ans.id, ans.text, ans.email, ans.date, ans.score);
                     });
                     resolve(answers);
                 }
@@ -69,7 +68,6 @@ function Question(id, text, email, date){
     }
 
     this.getTop = (num) => {
-        console.log(this.id);
         return new Promise((resolve, reject) => {
             const sql = 'SELECT * FROM answer WHERE id = ?';
             db.all(sql,[this.id],(err,rows) => {
