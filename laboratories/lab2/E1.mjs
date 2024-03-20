@@ -1,3 +1,6 @@
+// To be fixed: printing involves as much undefined as the printed lines (which are correct)
+// To be added: second request
+
 import dayjs from 'dayjs';
 import sqlite from 'sqlite3';
 
@@ -143,33 +146,33 @@ function FilmLibrary(){
 async function main(){
     let library = new FilmLibrary();
     library.DBprintLibrary().then(x => {
-        console.log("DBprintLibrary:")
-        console.log(x);
+        console.log("DBprintLibrary:");
+        console.log(x.toString());
     })
     const result1 = await library.DBprintLibrary();
     library.DBprintFavorites().then(x => {
-        console.log("DBprintFavorites:")
-        console.log(x);
+        console.log("DBprintFavorites:");
+        console.log(x.toString());
     })
     const result2 = await library.DBprintFavorites();
     library.DBprintWatchedToday().then(x => {
-        console.log("DBprintWatchedToday:")
-        console.log(x);
+        console.log("DBprintWatchedToday:");
+        console.log(x.toString());
     })
     const result3 = await library.DBafterDate();
     library.DBafterDate("2024-03-17").then(x => {
-        console.log("DBafterDate:")
-        console.log(x);
+        console.log("DBafterDate:");
+        console.log(x.toString());
     })
     const result4 = await library.DBafterDate("2024-03-17");
     library.DBprintGreater(4).then(x => {
-        console.log("DBprintGreater:")
-        console.log(x);
+        console.log("DBprintGreater:");
+        console.log(x.toString());
     })
     const result5 = await library.DBprintGreater(4);
     library.DBprintContainString('Star').then(x => {
-        console.log("DBprintContainString:")
-        console.log(x);
+        console.log("DBprintContainString:");
+        console.log(x.toString());
     })
     const result6 = await library.DBprintContainString("Star");
 }
