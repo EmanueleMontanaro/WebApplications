@@ -1,4 +1,3 @@
-// To be fixed: printing involves as much undefined as the printed lines (which are correct)
 // To be added: second request
 
 import dayjs from 'dayjs';
@@ -122,6 +121,58 @@ function FilmLibrary(){
         })
     }
 
+    this.DBaddMovie = (film) => {
+        return new Promise((resolve, reject) => {
+            const sql = 'INSERT INTO films VALUES (?,?,?,?,?,?)';
+            db.run(sql,[film.id, film.title, film.favorites, film.rating, film.date, film.userid], function (err) {
+                if (err) reject(err);
+                else{
+                    let string = '';
+                    if (this.changes > 0) resolve(string = `Successfully added Movie with ID: ${film.id}`);
+                    else resolve(string = `Failed to add Movie with ID: ${film.id}`);
+                }
+            })
+        })
+    }
+
+    this.DBdeleteMovie = (id) => {
+        return new Promise((resolve, reject) => {
+            const sql = 'DELETE FROM films WHERE id=?';
+            db.run(sql,[id],function (err) {
+                if (err) reject(err);
+                else{
+                    let string = '';
+                    if (this.changes > 0) resolve(string = `Successfully deleted Movie with ID: ${id}`);
+                    else resolve(string = `Failed to delete Movie with ID: ${id}`);
+                }
+            })
+        })
+    }
+
+    this.DBdeleteDates = (count) => {
+        return new Promise((resolve, reject) => {
+            const sql = 'UPDATE films SET watchDate = ?';
+            db.run(sql,[null],function (err) {
+                if (err) throw err;
+                else{
+                    let string = '';
+                    if(this.changes == count) resolve(string = `Successfully deleted watchDate column from all films`);
+                else resolve(string = `Failed to delete watchDate column from ${count - this.changes} films`);
+                }
+            })
+        })
+    }
+
+    this.DBcount = () => {
+        return new Promise((resolve, reject) => {
+            const sql = 'SELECT * FROM films';
+            db.all(sql,[],(err,rows) => {
+                if (err) reject(err);
+                else resolve(rows.length);
+            })
+        })
+    }
+
     this.sortByDate = () => {
         [...this.films].filter(film => film.date != null).sort((a,b) => (dayjs(a.date).isAfter(dayjs(b.date)) ? 1 : -1)).forEach(film => film.toString());
         [...this.films].filter(film => film.date == null).forEach(film => film.toString());
@@ -145,36 +196,49 @@ function FilmLibrary(){
 
 async function main(){
     let library = new FilmLibrary();
-    library.DBprintLibrary().then(x => {
+    console.log('First part:')
+    await library.DBprintLibrary().then(x => {
         console.log("DBprintLibrary:");
-        console.log(x.toString());
+        x.toString();
     })
-    const result1 = await library.DBprintLibrary();
-    library.DBprintFavorites().then(x => {
+    await library.DBprintFavorites().then(x => {
         console.log("DBprintFavorites:");
-        console.log(x.toString());
+        x.toString();
     })
-    const result2 = await library.DBprintFavorites();
-    library.DBprintWatchedToday().then(x => {
+    await library.DBprintWatchedToday().then(x => {
         console.log("DBprintWatchedToday:");
-        console.log(x.toString());
+        x.toString();
     })
-    const result3 = await library.DBafterDate();
-    library.DBafterDate("2024-03-17").then(x => {
+    await library.DBafterDate("2024-03-17").then(x => {
         console.log("DBafterDate:");
-        console.log(x.toString());
+        x.toString();
     })
-    const result4 = await library.DBafterDate("2024-03-17");
-    library.DBprintGreater(4).then(x => {
+    await library.DBprintGreater(4).then(x => {
         console.log("DBprintGreater:");
-        console.log(x.toString());
+        x.toString();
     })
-    const result5 = await library.DBprintGreater(4);
-    library.DBprintContainString('Star').then(x => {
+    await library.DBprintContainString('Star').then(x => {
         console.log("DBprintContainString:");
-        console.log(x.toString());
+        x.toString();
     })
-    const result6 = await library.DBprintContainString("Star");
+
+
+    console.log('\nSecond part:');
+    let movie1 = new Movie(6, 'Man In Black', 3, 0, 2, '2024-02-29');
+    let movie2 = new Movie(7, 'Shutter Island', 2, 1, 5, '2024-01-15');
+    await library.DBdeleteMovie(6).then(result => console.log(result));
+    await library.DBdeleteMovie(7).then(result => console.log(result));
+    await library.DBaddMovie(movie1).then(result => console.log(result));
+    await library.DBaddMovie(movie2).then(result => console.log(result));
+    await library.DBprintLibrary().then(x => {
+        console.log("DBprintLibrary:");
+        x.toString();
+    })
+    await library.DBdeleteDates(await library.DBcount()).then(result => console.log(result));
+    await library.DBprintLibrary().then(x => {
+        console.log("DBprintLibrary:");
+        x.toString();
+    })
 }
 
 main();
