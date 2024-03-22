@@ -157,7 +157,7 @@ function FilmLibrary(){
                 else{
                     let string = '';
                     if(this.changes == count) resolve(string = `Successfully deleted watchDate column from all films`);
-                else resolve(string = `Failed to delete watchDate column from ${count - this.changes} films`);
+                else resolve(string = `Faild to delete watchDate column from ${count - this.changes} films`);
                 }
             })
         })
