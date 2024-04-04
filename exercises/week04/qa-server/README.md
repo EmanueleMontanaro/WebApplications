@@ -83,11 +83,11 @@ Description: Create a new answer to the question represented by `<id>`.
 Request body:
 ```
 {
-    "text": "Last year, it had about 220 first-timers.",
-    "email": "luca.mannella@polito.it",
-    "score": 0,
-    "date": "2024-03-26"
-  }
+  "text": "Last year, it had about 220 first-timers.",
+  "email": "luca.mannella@polito.it",
+  "score": 0,
+  "date": "2024-03-26"
+}
 ```
 
 Response: `201 Created` (succes, with the created id), `404 Not Found` (wrong id), or `503 Service Unavailable` (generic error). If the request body is not valid, `422 Unprocessable Entity` (validation error).
