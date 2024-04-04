@@ -59,7 +59,7 @@ Response body:
 
 ### __Get all max rated movies__
 
-URL: `/api/library/movies`
+URL: `/api/library/movies/:filter`
 
 HTTP Method: GET.
 
