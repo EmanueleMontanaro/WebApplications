@@ -69,7 +69,7 @@ export const addQuestion = (question) => {
 export const listAnswersOf = (questionId) => {
   return new Promise((resolve, reject) => {
     const sql = 'SELECT answer.*, user.email FROM answer JOIN user ON answer.authorId=user.id WHERE answer.questionId = ?';
-    db.all(sql, [this.id], (err, rows) => {
+    db.all(sql, [questionId], (err, rows) => {
       if (err)
         reject(err)
       else {
@@ -81,7 +81,7 @@ export const listAnswersOf = (questionId) => {
 }
 
 // add a new answer
-export const addAnswer = (answer) => {
+export const addAnswer = (answer, questionId) => {
   return new Promise((resolve, reject) => {
     let sql = 'SELECT id from user WHERE email = ?';
     db.get(sql, [answer.email], (err, row) => {
@@ -91,7 +91,7 @@ export const addAnswer = (answer) => {
         resolve({error: "Author not available, check the inserted email."});
       else {
         sql = "INSERT INTO answer(text, authorId, date, score, questionId) VALUES (?, ?, DATE(?), ?, ?)";
-        db.run(sql, [answer.text, row.id, answer.date.toISOString(), answer.score, this.id], function (err) {
+        db.run(sql, [answer.text, row.id, answer.date, answer.score, questionId], function (err) {
           if (err)
             reject(err);
           else
@@ -104,10 +104,34 @@ export const addAnswer = (answer) => {
 
 // update an existing answer
 export const updateAnswer = (answer) => {
-  // write something clever
+  return new Promise((resolve, reject) => {
+    let sql = 'SELECT id from user WHERE email = ?';
+    db.get(sql, [answer.email], (err, row) => {
+      if (err)
+        reject(err);
+      else if (row === undefined)
+        resolve({error: "Author not available, check the inserted email."});
+      else {
+        sql = "UPDATE answer SET text = ?, authorId = ?, date = DATE(?), score = ? WHERE id = ?"
+        db.run(sql, [answer.text, row.id, answer.date, answer.score, answer.id], function (err) {
+          if (err)
+            reject(err);
+          else
+            resolve(this.lastID);
+        });
+      }
+    });
+  });
 }
 
 // vote for an answer
 export const voteAnswer = (answerId, vote) => {
-  // write something clever
+  return new Promise ((resolve, reject) => {
+    const delta = vote === 'upvote' ? 1: -1;
+    const sql = 'UPDATE answer SET score = score + ? WHERE id = ?';
+    db.run(sql, [delta, answerId], function(err) {
+      if(err) reject(err);
+      resolve(this.changes);
+    });
+  });
 }

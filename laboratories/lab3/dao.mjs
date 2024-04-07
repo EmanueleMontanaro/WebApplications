@@ -55,11 +55,13 @@ export const bestRated = () => {
 //Print unseen movies
 export const unseen = () => {
     return new Promise((resolve, reject) => {
-        const sql = 'SELECT id, title, isFavorite, rating, watchDate, userId FROM films WHERE watchDate = ?';
-        db.all(sql,[null],(err,rows) => {
+        const sql = 'SELECT id, title, isFavorite, rating, watchDate, userId FROM films';
+        db.all(sql,[],(err,rows) => {
             if (err) reject(err);
             else{
-                const result = rows.map(ans => {
+                const result = rows
+                .filter(ans => !dayjs(ans.watchDate).isValid())
+                .map(ans => {
                     return new Movie(ans.id, ans.title, ans.userId, ans.isFavorite, ans.rating, ans.watchDate);
                 })
                 resolve(result);
@@ -75,10 +77,10 @@ export const watchedLastMonth = () => {
         db.all(sql,[],(err,rows) => {
             if (err) reject(err);
             else{
-                const result = rows.map(ans => {
-                    if(dayjs(ans.date).isAfter(dayjs().subtract(30,'days'))){
-                        return new Movie(ans.id, ans.title, ans.userId, ans.isFavorite, ans.rating, ans.watchDate);
-                    }
+                const result = rows
+                .filter(ans => dayjs(ans.watchDate).isAfter(dayjs().subtract(30,'d')) && dayjs(ans.watchDate).isValid())
+                .map(ans => {
+                    return new Movie(ans.id, ans.title, ans.userId, ans.isFavorite, ans.rating, ans.watchDate);
                 })
                 resolve(result);
             }
@@ -87,16 +89,20 @@ export const watchedLastMonth = () => {
 }
 
 //Print movie given id
-export const movie = (id) => {
+export const getMovie = (id) => {
+    console.log("entered function");
     return new Promise((resolve, reject) => {
         const sql = 'SELECT id, title, isFavorite, rating, watchDate, userId FROM films WHERE id=?';
-        db.get(sql,[id],function (err,row) {
+        db.get(sql,[id], (err,row) => {
             if (err) reject(err);
+            else if(row === undefined) {
+                resolve({error: "This movie doesn't exist"});
+            }
             else{
                 resolve(new Movie(row.id, row.title, row.userId, row.isFavorite, row.rating, row.watchDate));
             }
-        })
-    })
+        });
+    });
 }
 
 //Add movie
