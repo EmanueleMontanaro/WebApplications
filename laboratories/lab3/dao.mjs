@@ -108,8 +108,9 @@ export const getMovie = (id) => {
 //Add movie
 export const addMovie = (title, favorites, rating, date, userid) => {
     return new Promise((resolve, reject) => {
+        let id = createID();
         const sql = 'INSERT INTO films VALUES (?,?,?,?,?,?)';
-        db.run(sql,[id = createID(), title, favorites, rating, dayjs(date).format('YYYY-MM-DD'), userid], function (err) {
+        db.run(sql,[id, title, favorites, rating, dayjs(date).format('YYYY-MM-DD'), userid], function (err) {
             if (err) reject(err);
             else{
                 let string = '';
@@ -126,7 +127,7 @@ const createID = () => {
     db.get(sql,[], function (err,row) {
         if (err) throw err;
         else{
-            return id+1;
+            return row+1;
         }
     })
 }
@@ -134,13 +135,22 @@ const createID = () => {
 //Update all infos of a specific movie
 export const updateMovie = (id, title, favorites, rating, date, userid) => {
     return new Promise ((resolve, reject) => {
-        const sql = 'UPDATE films SET title = ?, isFavorite = ?, rating = ?, watchDate = ?, userId = ?  WHERE id = ?';
-        db.run(sql,[title,favorites,rating,date,userid,id], function (err) {
+        console.log("entered");
+        const sql = 'SELECT id FROM films WHERE id = ?'
+        db.get(sql,[id], function (err,row) {
             if (err) reject(err);
-            else{
-                let string = '';
-                if (this.changes > 0) resolve(string = `Successfully updated Movie with ID: ${id}`);
-                else resolve(string = `Failed to update Movie with ID: ${id}`);
+            else if (row === undefined) resolve({error: "A movie with this ID doesn't exist."});
+            else {
+                console.log("entered else");
+                const sql = 'UPDATE films SET title = ?, isFavorite = ?, rating = ?, watchDate = ?, userId = ?  WHERE id = ?';
+                db.run(sql,[title,favorites,rating,date,userid,id], function (err) {
+                    if (err) reject(err);   
+                    else{
+                        let string = '';
+                        if (this.changes > 0) resolve(string = `Successfully updated Movie with ID: ${id}`);
+                        else resolve(string = `Failed to update Movie with ID: ${id}`);
+                    }
+                })
             }
         })
     })

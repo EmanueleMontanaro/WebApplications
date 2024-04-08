@@ -1,5 +1,6 @@
 GET http://localhost:3001/api/library/movies
 
+
 ###
 
 GET http://localhost:3001/api/library/movies?filter=favorites
@@ -22,7 +23,7 @@ GET http://localhost:3001/api/library/movies/1
 
 ###
 
-POST http://localhost:3001/api/localhost:3001/api/library/movies
+POST http://localhost:3001/api/library/movies
 content-type: application/json
 
 {
@@ -32,3 +33,18 @@ content-type: application/json
   "date": "2024-04-01",
   "userid": 1
 }
+
+###
+
+
+PUT http://localhost:3001/api/library/movies/6
+content-type: application/json
+
+{  
+  "title": "Interstellar",
+  "favorites": 1,
+  "rating": 4,
+  "date": "2024-04-07",
+  "userid": 2
+}
+
