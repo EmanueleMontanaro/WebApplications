@@ -1,5 +1,5 @@
 // Imports
-import express, {json} from 'express';
+import express, {json, response} from 'express';
 import morgan from 'morgan';
 import {check, validationResult} from 'express-validator';
 import { library, favorites, bestRated, unseen, watchedLastMonth, getMovie, addMovie, updateMovie, updateRating, updateFavorites, deleteMovie } from './dao.mjs';
@@ -16,45 +16,63 @@ app.use(morgan('dev'));
 
 // Get all movies
 app.get('/api/library/movies', (request, response) => {
-    library()
-    .then(movies => response.json(movies))
-    .catch(() => response.status(500).end());
-})
-
-app.get('/api/library/movies/?filter=favorites', (request, response) => {
+  if(request.query.filter === 'favorites') {
+    console.log("favorites");
     favorites()
     .then(movies => response.json(movies))
     .catch(() => response.status(500).end());
-})
-
-app.get('/api/library/movies/?filter=bestRated', (request, response) => {
+  } else if (request.query.filter === 'maxR'){
     bestRated()
     .then(movies => response.json(movies))
     .catch(() => response.status(500).end());
-})
-
-app.get('/api/library/movies/?filter=unseen', (request, response) => {
+  } else if (request.query.filter === 'unseen'){
     unseen()
     .then(movies => response.json(movies))
     .catch(() => response.status(500).end());
-})
-
-app.get('/api/library/movies/?filter=lastMonth', (request, response) => {
+  } else if (request.query.filter === 'lastMonth'){
     watchedLastMonth()
     .then(movies => response.json(movies))
     .catch(() => response.status(500).end());
+  } else {
+    console.log("library");
+    library()
+    .then(movies => response.json(movies))
+    .catch(() => response.status(500).end());
+  }
 })
 
-app.get('/api/library/movies/:id', async(req, res) => {
+app.get('/api/library/movies/:id', async(request, response) => {
     try {
-      const movie = await getMovie(req.params.id);
+      const movie = await getMovie(request.params.id);
       if(movie.error)
-        res.status(404).json(movie);
+      response.status(404).json(movie);
       else
-        res.json(movie);
+      response.json(movie);
     } catch {
-      res.status(500).end();
+      response.status(500).end();
     }
-  });
+});
 
-app.listen(port, () => 'API Server Started');
+app.post('/api/library/movies', [
+  check('title').notEmpty().withMessage("Title can't be empty"),
+  check('favorites').isIn([0,1]).withMessage("Favorites field must be 0 or 1"),
+  check('rating').isIn([0,1,2,3,4,5]).withMessage("Rating field bust be an integer from 0 to 5"),
+  check('date').optional().isDate({format: 'YYYY-MM-DD', strictMode: true}).withMessage("Date field must be in 'YYYY-MM-DD' format or NULL"),
+  check('userid').isInt()
+], async (request, response) => {
+  console.log("entered");
+  const errors = validationResult(request);
+  if(!errors.isEmpty()) {
+    return response.status(422).json({errors: errors.array()});
+  }
+
+  try {
+    const id = await addMovie(request.params.title,request.params.favorites,request.params.rating,request.params.date,request.params.userid);
+    response.status(201).location(id).end();
+  } catch(e) {
+    console.error(`ERROR: ${e.message}`);
+    response.status(503).json({error: 'Error while creating new movie.'});
+  }
+}); 
+
+app.listen(port, () => { console.log(`API Server Started at http://localhost:${port}`); });

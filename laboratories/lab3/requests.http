@@ -1,0 +1,34 @@
+GET http://localhost:3001/api/library/movies
+
+###
+
+GET http://localhost:3001/api/library/movies?filter=favorites
+
+###
+
+GET http://localhost:3001/api/library/movies?filter=maxR
+
+###
+
+GET http://localhost:3001/api/library/movies?filter=unseen
+
+###
+
+GET http://localhost:3001/api/library/movies?filter=lastMonth
+
+###
+
+GET http://localhost:3001/api/library/movies/1
+
+###
+
+POST http://localhost:3001/api/localhost:3001/api/library/movies
+content-type: application/json
+
+{
+  "title": "Avatar",
+  "favorites": 0,
+  "rating": 5,
+  "date": "2024-04-01",
+  "userid": 1
+}

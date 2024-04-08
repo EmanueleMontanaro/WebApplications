@@ -109,7 +109,7 @@ export const getMovie = (id) => {
 export const addMovie = (title, favorites, rating, date, userid) => {
     return new Promise((resolve, reject) => {
         const sql = 'INSERT INTO films VALUES (?,?,?,?,?,?)';
-        db.run(sql,[id = createID(), title, favorites, rating, date, userid], function (err) {
+        db.run(sql,[id = createID(), title, favorites, rating, dayjs(date).format('YYYY-MM-DD'), userid], function (err) {
             if (err) reject(err);
             else{
                 let string = '';

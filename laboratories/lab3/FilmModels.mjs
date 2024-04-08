@@ -6,7 +6,7 @@ function Movie(id,title,userid = 1,favorites=false,rating = 0,date = null){
     this.userid = userid;
     this.favorites = favorites;
     if(date!=null){this.date = dayjs(date).format('YYYY-MM-DD');}
-    else{this.date="null"}
+    else{this.date=null}
     this.rating = rating;
 }
 

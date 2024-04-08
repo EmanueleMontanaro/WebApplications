@@ -32,7 +32,7 @@ Response body:
 
 ### __Get all favorite movies__
 
-URL `/api/library/movies/?filter=favorites`
+URL `/api/library/movies?filter=favorites`
 
 HTTP Method: GET.
 
@@ -59,7 +59,7 @@ Response body:
 
 ### __Get all max rated movies__
 
-URL: `/api/library/movies/?filter=maxR`
+URL: `/api/library/movies?filter=maxR`
 
 HTTP Method: GET.
 
@@ -86,7 +86,7 @@ Response body:
 
 ### __Get all unseen movies__
 
-URL: `/api/library/movies`
+URL: `/api/library/movies?filter=unseen`
 
 HTTP Method: GET.
 
@@ -113,7 +113,7 @@ Response body:
 
 ### __Get all movies watched last month__
 
-URL: `/api/library/movies`
+URL: `/api/library/movies?filter=lastMonth`
 
 HTTP Method: GET.
 
