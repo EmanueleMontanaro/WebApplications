@@ -212,7 +212,7 @@ Response body: __None__
 
 ### __Update rating of a movie__
 
-URL: `/api/library/movies/<id>`
+URL: `/api/library/movies/<id>/rating`
 
 HTTP Method: PUT.
 
@@ -232,7 +232,7 @@ Response body: __None__
 
 ### __Update isFavorite of a movie__
 
-URL: `/api/library/movies/<id>`
+URL: `/api/library/movies/<id>/favorites`
 
 HTTP Method: PUT.
 

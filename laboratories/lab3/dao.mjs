@@ -90,7 +90,6 @@ export const watchedLastMonth = () => {
 
 //Print movie given id
 export const getMovie = (id) => {
-    console.log("entered function");
     return new Promise((resolve, reject) => {
         const sql = 'SELECT id, title, isFavorite, rating, watchDate, userId FROM films WHERE id=?';
         db.get(sql,[id], (err,row) => {
@@ -135,13 +134,13 @@ const createID = () => {
 //Update all infos of a specific movie
 export const updateMovie = (id, title, favorites, rating, date, userid) => {
     return new Promise ((resolve, reject) => {
-        console.log("entered");
         const sql = 'SELECT id FROM films WHERE id = ?'
         db.get(sql,[id], function (err,row) {
             if (err) reject(err);
-            else if (row === undefined) resolve({error: "A movie with this ID doesn't exist."});
+            else if (row === undefined){
+                resolve({error: "This movie doesn't exist"});
+            }
             else {
-                console.log("entered else");
                 const sql = 'UPDATE films SET title = ?, isFavorite = ?, rating = ?, watchDate = ?, userId = ?  WHERE id = ?';
                 db.run(sql,[title,favorites,rating,date,userid,id], function (err) {
                     if (err) reject(err);   
@@ -159,13 +158,22 @@ export const updateMovie = (id, title, favorites, rating, date, userid) => {
 //Update rating of a specific movie
 export const updateRating = (id, rating) => {
     return new Promise ((resolve, reject) => {
-        const sql = 'UPDATE films SET rating = ? WHERE id = ?';
-        db.run(sql,[rating,id], function (err) {
+        const sql = 'SELECT id FROM films WHERE id = ?'
+        db.get(sql,[id], function (err,row) {
             if (err) reject(err);
-            else{
-                let string = '';
-                if (this.changes > 0) resolve(string = `Successfully updated rating of Movie with ID: ${id}`);
-                else resolve(string = `Failed to update rating of Movie with ID: ${id}`);
+            else if (row === undefined){
+                resolve({error: "This movie doesn't exist"});
+            }
+            else {
+                const sql = 'UPDATE films SET rating = ? WHERE id = ?';
+                db.run(sql,[rating,id], function (err) {
+                    if (err) reject(err);
+                    else {
+                    let string = '';
+                    if (this.changes > 0) resolve(string = `Successfully updated rating of Movie with ID: ${id}`);
+                    else resolve(string = `Failed to update rating of Movie with ID: ${id}`);
+                    }
+                })
             }
         })
     })
@@ -189,13 +197,21 @@ export const updateFavorites = (id, favorites) => {
 //Delete a specific movie
 export const deleteMovie = (id) => {
     return new Promise((resolve, reject) => {
-        const sql = 'DELETE FROM films WHERE id=?';
-        db.run(sql,[id],function (err) {
+        const sql = 'SELECT id FROM films WHERE id = ?';
+        db.get(sql,[id],(err,row) => {
             if (err) reject(err);
-            else{
-                let string = '';
-                if (this.changes > 0) resolve(string = `Successfully deleted Movie with ID: ${id}`);
-                else resolve(string = `Failed to delete Movie with ID: ${id}`);
+            else if (row === undefined){
+                resolve({error: "This movie doesn't exist"});
+            } else{
+                const sql = 'DELETE FROM films WHERE id=?';
+                db.run(sql,[id],function (err) {
+                    if (err) reject(err);
+                    else{
+                        let string = '';
+                        if (this.changes > 0) resolve(string = `Successfully deleted Movie with ID: ${id}`);
+                        else resolve(string = `Failed to delete Movie with ID: ${id}`);
+                    }
+                })
             }
         })
     })
