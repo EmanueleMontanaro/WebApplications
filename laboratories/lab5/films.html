@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Films">
+        <meta name="author" content="Emanuele Montanaro">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="custom.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- Optional JavaScript for Bootstrap -->
+         <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+        <!-- CDN example (jsDelivr) -->
+        <script defer src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+
+
+        <!-- Including JS File -->
+        <script defer src="./app.js"></script>
+        <title>Film Library</title>
+    </head>
+    <body class="bg-dark">
+        <header class="container-fluid">
+            <nav class="navbar bg-light d-none d-md-block">
+                <div class="container-fluid">
+                    <div class="col-sm-3">
+                        <a class="navbar-brand mb-0 h1">Film Library</a>
+                    </div>
+                    <div class="col-sm-6">
+                        <form class="d-flex" role="search">
+                            <input class="form-control text-center" type="search" placeholder="Search" aria-label="Search">
+                            <button type="button" class="btn btn-dark">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"></path>
+                                </svg>
+                            </button>
+                      </form>
+                    </div>
+                    <div class="col-sm-3 text-end">
+                        <button class="btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                            </svg>
+                        </button>
+                        
+                    </div>
+                </div>
+              </nav>
+              
+              <nav class="navbar d-block d-md-none navbar-dark bg-transparent">
+                <div class="container-fluid">
+                  <a class="navbar-brand" href="#">Film Library</a>
+
+
+                  <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+
+
+                  <div class="offcanvas offcanvas-start text-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header">
+                      <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Film Library</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+
+
+                    <div class="offcanvas-body">
+                      <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <button class="btn mx-auto">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                                </svg>
+                            </button>
+                        </li>
+                        
+                        <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle text-dark mt-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Filter
+                          </a>
+                          <ul class="dropdown-menu">
+                            <li><a class="dropdown-item text-dark" href="#">All</a></li>
+                            <li><a class="dropdown-item text-dark" href="#">Favorite</a></li>
+                            <li><a class="dropdown-item text-dark" href="#">Best rated</a></li>
+                            <li><a class="dropdown-item text-dark" href="#">Seen last month</a></li>
+                            <li><a class="dropdown-item text-dark" href="#">Unseen</a></li>
+                          </ul>
+                        </li>
+                      </ul>
+                      <form class="d-flex mt-3" role="search">
+                        <input class="form-control text-center " type="search" placeholder="Search" aria-label="Search">
+                        <button type="button" class="btn btn-dark">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"></path>
+                            </svg>
+                        </button>
+                  </form>
+                      
+                    </div>
+
+                  </div>
+                </div>
+              </nav>
+        </header>
+        <button type="button" class="btn bg-light floating-button rounded-circle" style="height: 50px; width: 50px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-lg position-absolute top-50 start-50 translate-middle" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"></path>
+            </svg>
+        </button>
+        <main class="container-fluid mt-0 row">
+                <div class="col-sm-4 sidebar d-none d-md-block">
+                    <div class="btn-group-vertical d-flex mt-5" role="group" aria-label="Vertical radio toggle button group">
+                        <input type="radio" class="btn-check" name="vbtn-radio" id="all-receiver" autocomplete="off" checked>
+                        <label class="btn btn-outline-light" for="all-receiver">All</label>
+                        <input type="radio" class="btn-check" name="vbtn-radio" id="favorites-receiver" autocomplete="off">
+                        <label class="btn btn-outline-light" for="favorites-receiver">Favorite</label>
+                        <input type="radio" class="btn-check" name="vbtn-radio" id="rated-receiver" autocomplete="off">
+                        <label class="btn btn-outline-light" for="rated-receiver">Best rated</label>
+                        <input type="radio" class="btn-check" name="vbtn-radio" id="lastmonth-receiver" autocomplete="off">
+                        <label class="btn btn-outline-light" for="lastmonth-receiver">Seen last month</label>
+                        <input type="radio" class="btn-check" name="vbtn-radio" id="unseen-receiver" autocomplete="off">
+                        <label class="btn btn-outline-light" for="unseen-receiver">Unseen</label>
+                      </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="row mt-5 d-flex w-100">
+                        <p class="h1 text-light ml-3">All</p>
+                    </div>
+                    <table class="table text-center position-relative">
+                        <tbody id="movie-table" class="table-dark">
+                            <!--
+                            <tr class="my-2">
+                                <td><p class="my-3">Pulp Fiction</p></td>
+                                <td>
+                                    <div class="form-check my-3">
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                                            Favorite
+                                        </label>
+                                    </div>
+                                </td>
+                                <td><p class="my-3">March 10, 2023</p></td>
+                                <td>
+                                    <div class="my-1" id="full-stars-example">
+                                        <div class="rating-group">
+                                            <input class="rating__input rating__input--none" name="rating1" id="rating-none-1" value="0" type="radio">
+                                            <label aria-label="No rating" class="rating__label" for="rating-none-1"><i class="rating__icon rating__icon--none fa fa-ban"></i></label>
+                                            <label aria-label="1 star" class="rating__label" for="rating-1-1"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                            <input class="rating__input" name="rating1" id="rating-1-1" value="1" type="radio">
+                                            <label aria-label="2 stars" class="rating__label" for="rating-2-1"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                            <input class="rating__input" name="rating1" id="rating-2-1" value="2" type="radio">
+                                            <label aria-label="3 stars" class="rating__label" for="rating-3-1"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                            <input class="rating__input" name="rating1" id="rating-3-1" value="3" type="radio">
+                                            <label aria-label="4 stars" class="rating__label" for="rating-4-1"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                            <input class="rating__input" name="rating1" id="rating-4-1" value="4" type="radio">
+                                            <label aria-label="5 stars" class="rating__label" for="rating-5-1"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                            <input class="rating__input" name="rating1" id="rating-5-1" value="5" type="radio" checked>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="btn-group my-2">
+                                        <button type="button" class="btn btn-outline-secondary">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                            <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"></path>
+                                            </svg>
+                                          <span class="visually-hidden">Edit</span>
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                                <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                                              </svg>
+                                          <span class="visually-hidden">Delete</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>                            
+                            <tr>
+                                <td><p class="my-3">21 Grams</p></td>
+                                <td>
+                                    <div class="form-check my-3">
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                                            Favorite
+                                        </label>
+                                    </div>
+                                </td>
+                                <td><p class="my-3">March 17, 2023</p></td>
+                                <td>
+                                    <div class="my-1" id="full-stars-example">
+                                        <div class="rating-group">
+                                            <input class="rating__input rating__input--none" name="rating2" id="rating-none-2" value="0" type="radio">
+                                            <label aria-label="No rating" class="rating__label" for="rating-none-2"><i class="rating__icon rating__icon--none fa fa-ban"></i></label>
+                                            <label aria-label="1 star" class="rating__label" for="rating-1-2"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                            <input class="rating__input" name="rating2" id="rating-1-2" value="1" type="radio">
+                                            <label aria-label="2 stars" class="rating__label" for="rating-2-2"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                            <input class="rating__input" name="rating2" id="rating-2-2" value="2" type="radio">
+                                            <label aria-label="3 stars" class="rating__label" for="rating-3-2"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                            <input class="rating__input" name="rating2" id="rating-3-2" value="3" type="radio" >
+                                            <label aria-label="4 stars" class="rating__label" for="rating-4-2"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                            <input class="rating__input" name="rating2" id="rating-4-2" value="4" type="radio" checked>
+                                            <label aria-label="5 stars" class="rating__label" for="rating-5-2"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                            <input class="rating__input" name="rating2" id="rating-5-2" value="5" type="radio">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="btn-group my-2">
+                                        <button type="button" class="btn btn-outline-secondary">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                            <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"></path>
+                                            </svg>
+                                          <span class="visually-hidden">Edit</span>
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                                <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                                              </svg>
+                                          <span class="visually-hidden">Delete</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p class="my-3">Star Wars</p></td>
+                                <td>
+                                    <div class="form-check my-3">
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                                            Favorite
+                                        </label>
+                                    </div>
+                                </td>
+                                <td><p class="my-3"></p></td>
+                                <td>
+                                    <div class="my-1" id="full-stars-example">
+                                        <div class="rating-group">
+                                            <input class="rating__input rating__input--none" name="rating3" id="rating-none-3" value="0" type="radio" checked>
+                                            <label aria-label="No rating" class="rating__label" for="rating-none-3"><i class="rating__icon rating__icon--none fa fa-ban"></i></label>
+                                            <label aria-label="1 star" class="rating__label" for="rating-1-3"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                            <input class="rating__input" name="rating3" id="rating-1-3" value="1" type="radio">
+                                            <label aria-label="2 stars" class="rating__label" for="rating-2-3"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                            <input class="rating__input" name="rating3" id="rating-2-3" value="2" type="radio">
+                                            <label aria-label="3 stars" class="rating__label" for="rating-3-3"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                            <input class="rating__input" name="rating3" id="rating-3-3" value="3" type="radio">
+                                            <label aria-label="4 stars" class="rating__label" for="rating-4-3"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                            <input class="rating__input" name="rating3" id="rating-4-3" value="4" type="radio">
+                                            <label aria-label="5 stars" class="rating__label" for="rating-5-3"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                            <input class="rating__input" name="rating3" id="rating-5-3" value="5" type="radio">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="btn-group my-2">
+                                        <button type="button" class="btn btn-outline-secondary">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                            <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"></path>
+                                            </svg>
+                                          <span class="visually-hidden">Edit</span>
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                                <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                                              </svg>
+                                          <span class="visually-hidden">Delete</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p class="my-3">Matrix</p></td>
+                                <td>
+                                    <div class="form-check my-3">
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                                            Favorite
+                                        </label>
+                                    </div>
+                                </td>
+                                <td><p class="my-3"></p></td>
+                                <td>
+                                    <div class="my-1" id="full-stars-example">
+                                        <div class="rating-group">
+                                            <input class="rating__input rating__input--none" name="rating4" id="rating-none-4" value="0" type="radio" checked>
+                                            <label aria-label="No rating" class="rating__label" for="rating-none-4"><i class="rating__icon rating__icon--none fa fa-ban"></i></label>
+                                            <label aria-label="1 star" class="rating__label" for="rating-1-4"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                            <input class="rating__input" name="rating4" id="rating-1-4" value="1" type="radio">
+                                            <label aria-label="2 stars" class="rating__label" for="rating-2-4"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                            <input class="rating__input" name="rating4" id="rating-2-4" value="2" type="radio">
+                                            <label aria-label="3 stars" class="rating__label" for="rating-3-4"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                            <input class="rating__input" name="rating4" id="rating-3-4" value="3" type="radio">
+                                            <label aria-label="4 stars" class="rating__label" for="rating-4-4"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                            <input class="rating__input" name="rating4" id="rating-4-4" value="4" type="radio">
+                                            <label aria-label="5 stars" class="rating__label" for="rating-5-4"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                            <input class="rating__input" name="rating4" id="rating-5-4" value="5" type="radio">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="btn-group my-2">
+                                        <button type="button" class="btn btn-outline-secondary">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                            <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"></path>
+                                            </svg>
+                                          <span class="visually-hidden">Edit</span>
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                                <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                                              </svg>
+                                          <span class="visually-hidden">Delete</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p class="my-3">Shrek</p></td>
+                                <td>
+                                    <div class="form-check my-3">
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                                            Favorite
+                                        </label>
+                                    </div>
+                                </td>
+                                <td><p class="my-3">March 21, 2023</p></td>
+                                <td>
+                                    <div class="my-1" id="full-stars-example">
+                                        <div class="rating-group">
+                                            <input class="rating__input rating__input--none" name="rating5" id="rating-none-5" value="0" type="radio">
+                                            <label aria-label="No rating" class="rating__label" for="rating-none-5"><i class="rating__icon rating__icon--none fa fa-ban"></i></label>
+                                            <label aria-label="1 star" class="rating__label" for="rating-1-5"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                            <input class="rating__input" name="rating5" id="rating-1-5" value="1" type="radio">
+                                            <label aria-label="2 stars" class="rating__label" for="rating-2-5"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                            <input class="rating__input" name="rating5" id="rating--5" value="2" type="radio">
+                                            <label aria-label="3 stars" class="rating__label" for="rating-3-5"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                            <input class="rating__input" name="rating5" id="rating-3-5" value="3" type="radio" checked="true">
+                                            <label aria-label="4 stars" class="rating__label" for="rating-4-5"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                            <input class="rating__input" name="rating5" id="rating-4-5" value="4" type="radio">
+                                            <label aria-label="5 stars" class="rating__label" for="rating-5-5"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                            <input class="rating__input" name="rating5" id="rating-5-5" value="5" type="radio">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="btn-group my-2">
+                                        <button type="button" class="btn btn-outline-secondary">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                            <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"></path>
+                                            </svg>
+                                          <span class="visually-hidden">Edit</span>
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                                <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                                              </svg>
+                                          <span class="visually-hidden">Delete</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            -->
+                        </tbody>
+                    </table>
+                    
+                </div>
+        </main>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</html>
