@@ -21,7 +21,7 @@ function FilmLibrary(){
             new Movie(2,'21 Grams',1,true,4,"2024-03-17"),
             new Movie(3,'Star Wars',1,false),
             new Movie(4,'Matrix',1,false),
-            new Movie(5,'Shrek',1,false,3,"2024-03-21")
+            new Movie(5,'Attack on titan',1,true,4,"2024-03-21")
         ]
     }
 
