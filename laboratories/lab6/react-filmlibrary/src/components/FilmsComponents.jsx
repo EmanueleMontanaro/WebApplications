@@ -48,7 +48,7 @@ function FilmData (props) {
     return(
     <>
       <td style={{backgroundColor: '#101935'}} className="text-light text-center" >{props.film.title}</td>
-      <td style={{backgroundColor: '#101935'}} className="text-light text-center"><FavoriteCheckbox favorites={props.film.favorites} /></td>
+      <td style={{backgroundColor: '#101935'}} className="text-light text-center"><FavoriteCheckbox favorites={props.film.favorites}/></td>
       <td style={{backgroundColor: '#101935'}} className="text-light text-center">{formattedDate}</td>
       <td style={{backgroundColor: '#101935'}} className="text-light text-center"><FilmRating film={props.film}/></td>
       <FilmAction/>
@@ -57,16 +57,10 @@ function FilmData (props) {
 }
 
 function FavoriteCheckbox (props) {
-    const [favValue, setFavValue] = useState(props.favorites);
-
-    const changer = () => {
-        setFavValue(!favValue);
-    }
-
     return(
         <>
             <label className="ui-bookmark">
-            <input type="checkbox" checked={favValue} onChange={() => changer()}/>
+            <input type="checkbox" checked={props.favorites ? true : false} readOnly/>
             <div className="bookmark">
             <svg viewBox="0 0 16 16" style={{marginTop: "4px"}} className="bi bi-heart-fill"
                 height="25"
@@ -85,15 +79,10 @@ function FavoriteCheckbox (props) {
 }
 
 function FilmRating (props) {
-    const [rating, setRating] = useState(props.film.rating);
-
-    const changeRating = (newRating) => {
-        setRating(newRating);
-    }
     console.log(props.film.id);
     return(
         <div className="rating">
-  <input type="radio" id={`star5-${props.film.id}`} name={`rate-${props.film.id}`} value="5" checked={rating==5} onClick={()=>changeRating(5)}/>
+  <input type="radio" id={`star5-${props.film.id}`} name={`rate-${props.film.id}`} value="5" checked={props.film.rating==5} readOnly/>
   <label title="Excellent!" htmlFor={`star5-${props.film.id}`}>
     <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512">
       <path
@@ -101,7 +90,7 @@ function FilmRating (props) {
       ></path>
     </svg>
   </label>
-  <input value="4" name={`rate-${props.film.id}`} id={`star4-${props.film.id}`} type="radio" checked={rating==4} onClick={()=>changeRating(4)}/>
+  <input value="4" name={`rate-${props.film.id}`} id={`star4-${props.film.id}`} type="radio" checked={props.film.rating==4} readOnly/>
   <label title="Great!" htmlFor={`star4-${props.film.id}`}>
     <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512">
       <path
@@ -109,7 +98,7 @@ function FilmRating (props) {
       ></path>
     </svg>
   </label>
-  <input value="3" name={`rate-${props.film.id}`} id={`star3-${props.film.id}`} type="radio" checked={rating==3} onClick={()=>changeRating(3)}/>
+  <input value="3" name={`rate-${props.film.id}`} id={`star3-${props.film.id}`} type="radio" checked={props.film.rating==3} readOnly/>
   <label title="Good" htmlFor={`star3-${props.film.id}`}>
     <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512">
       <path
@@ -117,7 +106,7 @@ function FilmRating (props) {
       ></path>
     </svg>
   </label>
-  <input value="2" name={`rate-${props.film.id}`} id={`star2-${props.film.id}`} type="radio" checked={rating==2} onClick={()=>changeRating(2)}/>
+  <input value="2" name={`rate-${props.film.id}`} id={`star2-${props.film.id}`} type="radio" checked={props.film.rating==2} readOnly/>
   <label title="Okay" htmlFor={`star2-${props.film.id}`}>
     <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512">
       <path
@@ -125,7 +114,7 @@ function FilmRating (props) {
       ></path>
     </svg>
   </label>
-  <input value="1" name={`rate-${props.film.id}`} id={`star1-${props.film.id}`} type="radio" checked={rating==1} onClick={()=>changeRating(1)}/>
+  <input value="1" name={`rate-${props.film.id}`} id={`star1-${props.film.id}`} type="radio" checked={props.film.rating==1} readOnly/>
   <label title="Bad" htmlFor={`star1-${props.film.id}`}>
     <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512">
       <path
