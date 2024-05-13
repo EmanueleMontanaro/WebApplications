@@ -12,7 +12,7 @@ function Answers (props) {
     <Row>
       <Col lg={10} className="mx-auto">
         <AnswerTable answers={props.answers} voteUp={props.voteUp}></AnswerTable>
-        <FormAnswer />
+        <AnswerForm addAnswer={addAnswer} />
       </Col>
     </Row>
     </>
