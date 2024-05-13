@@ -8,7 +8,6 @@ import FilmsForm from './FilmsForm.jsx';
 function Films (props) {
   let filteredMovies;
 
-  console.log(props.filter);
   if(props.filter==="All"){
     filteredMovies = [...props.films];
   } else if(props.filter==="Favorites"){
@@ -21,7 +20,6 @@ function Films (props) {
     filteredMovies = [...props.films].filter(movie => !dayjs(movie.date).isValid());
   }
 
-  console.log(filteredMovies);
     return(
         <>
             <Row>
