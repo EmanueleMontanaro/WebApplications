@@ -30,7 +30,7 @@ function App() {
   }
 
   const addMovie = (film) => {
-    const newId = Math.max(films.map(movie => movie.id)) + 1;
+    const newId = Math.max(...films.map(movie => movie.id)) + 1;
     const newMovie = new Movie(newId,film.title,1,film.favorites,film.rating,film.date);
     library.addMovie(newMovie);
     setFilms(library.getMovies());
