@@ -1,0 +1,75 @@
+GET http://localhost:3001/api/library/movies
+
+
+###
+
+GET http://localhost:3001/api/library/movies?filter=favorites
+
+###
+
+GET http://localhost:3001/api/library/movies?filter=maxR
+
+###
+
+GET http://localhost:3001/api/library/movies?filter=unseen
+
+###
+
+GET http://localhost:3001/api/library/movies?filter=lastMonth
+
+###
+
+GET http://localhost:3001/api/library/movies/1
+
+###
+
+POST http://localhost:3001/api/library/movies
+content-type: application/json
+
+{
+  "title": "Avatar",
+  "favorites": 0,
+  "rating": 5,
+  "date": "2024-04-01",
+  "userid": 1
+}
+
+###
+
+
+
+PUT http://localhost:3001/api/library/movies/6
+content-type: application/json
+
+
+{  
+  "title": "Interstellar",
+  "favorites": 0,
+  "rating": 4,
+  "date": "2024-04-07",
+  "userid": 2
+}
+
+###
+
+PUT http://localhost:3001/api/library/movies/6/rating
+content-type: application/json
+
+
+{  
+  "rating": 2
+}
+
+###
+
+PUT http://localhost:3001/api/library/movies/6/favorites
+content-type: application/json
+
+
+{  
+  "favorites": 1
+}
+
+###
+
+DELETE http://localhost:3001/api/library/movies/6

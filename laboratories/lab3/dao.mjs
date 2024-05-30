@@ -11,9 +11,11 @@ export const library = () => {
         db.all(sql,[],(err,rows) => {
             if (err) reject(err);
             else {
-                const result = rows.map(ans => {
-                    return new Movie(ans.id, ans.title, ans.userId, ans.isFavorite, ans.rating, ans.watchDate);
+                const result = rows.map(movie => {
+                    return new Movie(movie.id, movie.title, movie.userId, movie.isFavorite, movie.rating, movie.watchDate);
                 });
+                console.log("Printing result")
+                console.log(result);
                 resolve(result);
             }
         })
@@ -27,8 +29,8 @@ export const favorites = () => {
         db.all(sql,[],(err,rows) => {
             if (err) reject(err);
             else{
-                const result = rows.map(ans => {
-                    return new Movie(ans.id, ans.title, ans.userId, ans.isFavorite, ans.rating, ans.watchDate);
+                const result = rows.map(movie => {
+                    return new Movie(movie.id, movie.title, movie.userId, movie.isFavorite, movie.rating, movie.watchDate);
                 })
                 resolve(result);
             }
@@ -43,8 +45,8 @@ export const bestRated = () => {
         db.all(sql,[],(err,rows) => {
             if (err) reject(err);
             else{
-                const result = rows.map(ans => {
-                    return new Movie(ans.id, ans.title, ans.userId, ans.isFavorite, ans.rating, ans.watchDate);
+                const result = rows.map(movie => {
+                    return new Movie(movie.id, movie.title, movie.userId, movie.isFavorite, movie.rating, movie.watchDate);
                 })
                 resolve(result);
             }
@@ -60,9 +62,9 @@ export const unseen = () => {
             if (err) reject(err);
             else{
                 const result = rows
-                .filter(ans => !dayjs(ans.watchDate).isValid())
-                .map(ans => {
-                    return new Movie(ans.id, ans.title, ans.userId, ans.isFavorite, ans.rating, ans.watchDate);
+                .filter(movie => !dayjs(movie.watchDate).isValid())
+                .map(movie => {
+                    return new Movie(movie.id, movie.title, movie.userId, movie.isFavorite, movie.rating, movie.watchDate);
                 })
                 resolve(result);
             }
@@ -78,9 +80,9 @@ export const watchedLastMonth = () => {
             if (err) reject(err);
             else{
                 const result = rows
-                .filter(ans => dayjs(ans.watchDate).isAfter(dayjs().subtract(30,'d')) && dayjs(ans.watchDate).isValid())
-                .map(ans => {
-                    return new Movie(ans.id, ans.title, ans.userId, ans.isFavorite, ans.rating, ans.watchDate);
+                .filter(movie => dayjs(movie.watchDate).isAfter(dayjs().subtract(30,'d')) && dayjs(movie.watchDate).isValid())
+                .map(movie => {
+                    return new Movie(movie.id, movie.title, movie.userId, movie.isFavorite, movie.rating, movie.watchDate);
                 })
                 resolve(result);
             }

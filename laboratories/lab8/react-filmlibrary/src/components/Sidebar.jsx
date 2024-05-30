@@ -14,7 +14,7 @@ const SidebarFilters = (props) => {
   return (
     <Container className='container-fluid sidebar container'>
       <p className='h3 text-light mt-3'>Filters</p>
-      <ButtonList/>
+      <ButtonList editFilter={props.editFilter}/>
     </Container>
   );
    /*return (
