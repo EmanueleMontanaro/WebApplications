@@ -1,0 +1,175 @@
+/* Custom buttons */
+
+.button-dark{
+    background-color: #EDF2F4;
+}
+
+.button-light{
+    background-color: #101119;
+}
+
+/* Home page title */
+
+.title {
+    font-size: 6rem;
+    font-weight: bold;
+    text-align: center;
+    margin: 50px;
+    color: #EDF2F4;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  }
+
+
+/* Homepage container */
+
+.centered-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+  }
+
+/* Login form border */
+
+.rectangular-container-light {
+width: 300px; 
+height: 350px; 
+border: 2px solid #101119; 
+background-color: #8D99AE;
+border-radius: 15px; 
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.rectangular-container-dark {
+    width: 300px; 
+    height: 350px; 
+    border: 2px solid #EDF2F4; 
+    background-color: #8D99AE;
+    border-radius: 15px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+
+/* Background container */
+
+.background-container-light {
+    width: 100vw;
+    height: 100vh; 
+    background-color:#EDF2F4;
+    min-width: 100vw;     
+    min-height: 100vh;     
+    margin: 0;             
+    padding: 0;       
+    box-sizing: border-box;
+}
+
+.background-container-dark {
+    width: 100vw;
+    height: 100vh; 
+    background-color: #101119;
+    min-width: 100vw;     
+    min-height: 100vh;     
+    margin: 0;             
+    padding: 0;       
+    box-sizing: border-box;
+}
+/* Theme button */
+
+.button-fixed {
+    width: 40px; 
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+  }
+  
+  /* Fixed size icons */
+  .icon-fixed {
+    font-size: 20px;
+  }
+
+  /* Opposite background color */
+
+  .background-opposite-light {
+    background-color: #101119;
+  }
+
+  .background-opposite-dark {
+    background-color: #EDF2F4;
+  }
+
+  /* Opposite text color */
+
+  .text-opposite-light {
+    color: black;
+  }
+
+  .text-opposite-dark {
+    color: white;
+  }
+
+  /* Card hover */
+
+  .card-hover {
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.card-hover:hover {
+    transform: translateY(-10px) scale(1.05);
+}
+
+/* Title hover */
+
+.title-hover {
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.title-hover:hover {
+  transform: scale(1.05);
+}
+
+/* Button hover */
+
+.button-hover {
+  transition: transform 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.button-hover:hover {
+  transform: scale(1.05);
+  text-decoration: none;
+  color: inherit;
+  opacity: 1;
+}
+
+/* History table */
+
+.history-table-light {
+  width: 100%;
+  border: solid black;
+  margin: 25px 0;
+  font-size: 18px;
+  text-align: left;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.history-table-dark {
+  width: 100%;
+  background-color: black;
+  border: solid black;
+  margin: 25px 0;
+  font-size: 18px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.90);
+}
+
